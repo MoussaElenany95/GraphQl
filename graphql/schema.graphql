@@ -84,8 +84,12 @@ type User {
     "When the account was last updated."
     updated_at: DateTime!
 
-    "Posts created by this user."
-    posts: [Post!]! @hasMany(type: PAGINATOR)
+    "Posts created by this user. with filter and pagination."
+    posts(
+      "Filters by title. Accepts SQL LIKE wildcards `%` and `_`."
+      title: String @where(operator: "like")
+    ): [Post!]! @hasMany(type: PAGINATOR)
+    
 
     "Comments created by this user."
     comments: [Comment!]! @hasMany(type: PAGINATOR)
